@@ -9,5 +9,8 @@
         <module name="ccvn-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ccvn-api" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
