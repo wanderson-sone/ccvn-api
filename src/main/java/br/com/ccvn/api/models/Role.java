@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Table(name = "vn_roles")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 
     @Id
