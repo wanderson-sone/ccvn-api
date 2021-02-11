@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public User update(User obj) {
         User newObj  = findById(obj.getId());
         updateData(newObj, obj);
-        BeanUtils.copyProperties(obj, newObj, "id");
+//        BeanUtils.copyProperties(obj, newObj, "id");
         return repo.save(newObj);
     }
 
@@ -69,8 +69,9 @@ public class UserServiceImpl implements UserService {
 
     public User fromUserDTO(UserDTO objDto) {
         User user = new User(null, objDto.getName(), objDto.getEmail(),
-                objDto.getPassword(), objDto.getStatus());
-        Role role = roleService.findById(objDto.getRoles());
+                objDto.getPassword(), true);
+        Role role = roleService.findById(Long.parseLong(objDto.getRoles()));
+
         user.setRoles(Collections.singletonList(role));
         return user;
     }

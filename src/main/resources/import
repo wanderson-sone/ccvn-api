@@ -1,12 +1,22 @@
 -- POPULANDO A TABELA USUARIOS E A TABELA ROLES
-INSERT INTO vn_users (id, name, email, password, status, create_at)
+INSERT INTO vn_users (id, name, email, password, status, created_at)
   VALUES (null, 'wandeson', 'wanderson@gmail.com', '$2a$10$6av55QiXISh9I/72JOX5MOqJaB9ism3KkdbZGWBrgQtwvdNtPIwm.',1, CURRENT_DATE);
-INSERT INTO vn_users (id, name, email, password, status, create_at)
+INSERT INTO vn_users (id, name, email, password, status, created_at)
   VALUES (null, 'geysiele', 'geysiele@gmail.com', '$2a$10$YXSUQVRPk2IaRJWMrjg/WOMDpQr3GCC2Ef7Z3mmgWQ7LN6sDSSxKW', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'lucas', 'lucas@gmail.com', '123456', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'daniel', 'daniel@gmail.com', '123456', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'rafael', 'rafael@gmail.com', '123456', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'osias', 'osicas@gmail.com', '123456', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'bertolo', 'bertolo@gmail.com', '123456', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'moises', 'moises@gmail.com', '123456', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'carlos', 'carlos@gmail.com', '123456', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'madalena', 'madalena@gmail.com', '123456', 1, CURRENT_DATE);
+INSERT INTO vn_users (id, name, email, password, status, created_at) VALUES (null, 'juracy', 'juracy@gmail.com', '123456', 1, CURRENT_DATE);
+
 
 -- ADICIONANDO ROLES
-INSERT INTO vn_roles (name) VALUES ('ROLE_USER');
 INSERT INTO vn_roles (name) VALUES ('ROLE_ADMIN');
+INSERT INTO vn_roles (name) VALUES ('ROLE_USER');
 
 -- CRIANDO OS LAÇOS
 INSERT INTO vn_users_roles (user_id, role_id) VALUES (1, 1);
