@@ -16,21 +16,18 @@ import java.util.List;
 @AllArgsConstructor
 public class UserDTO {
 
-    private Long id;
-
-    @NotEmpty(message="Preenchimento obrigatório")
-    @Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
     private String name;
 
-    @NotEmpty(message="Preenchimento obrigatório")
-    @Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
     private String email;
 
     private String password;
 
-    private Boolean status;
+    private String status;
 
-    private Long roles;
+    private String roles;
 
-    private Date createdAt;
 }

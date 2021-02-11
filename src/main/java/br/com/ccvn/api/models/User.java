@@ -73,6 +73,7 @@ public class User {
         createdAt = atual;
         updatedAt = atual;
     }
+
 }
 
 

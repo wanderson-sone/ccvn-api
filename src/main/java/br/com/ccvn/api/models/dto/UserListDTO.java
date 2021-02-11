@@ -14,6 +14,8 @@ import java.util.List;
 @Setter
 public class UserListDTO {
 
+    private Long id;
+
     private String name;
 
     private String email;
@@ -25,6 +27,7 @@ public class UserListDTO {
     private List<Role> roles;
 
     public UserListDTO(User obj){
+        id = obj.getId();
         name = obj.getName();
         email = obj.getEmail();
         status = obj.getStatus();
