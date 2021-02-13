@@ -10,11 +10,11 @@ import br.com.ccvn.api.services.exceptions.DataIntegrityException;
 import br.com.ccvn.api.services.exceptions.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repo;
 
     private final RoleService roleService;
+
+    private final BCryptPasswordEncoder pe;
 
     @Override
     public List<User> findAll() {
@@ -42,36 +44,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User create(User obj) {
         obj.setId(null);
         userExists(obj.getEmail());
+        String password = pe.encode(obj.getPassword());
+        obj.setPassword(password);
         obj = repo.save(obj);
         return obj;
     }
 
     @Override
     public User update(User obj) {
-        User newObj  = findById(obj.getId());
+        User newObj = findById(obj.getId());
         updateData(newObj, obj);
-//        BeanUtils.copyProperties(obj, newObj, "id");
         return repo.save(newObj);
     }
 
     @Override
     public void delete(Long id) {
         findById(id);
-        try{
+        try {
             repo.deleteById(id);
-        }catch (DataIntegrityException e) {
+        } catch (DataIntegrityException e) {
             throw new DataIntegrityException("Não e possivel...");
         }
     }
 
     public User fromUserDTO(UserDTO objDto) {
-        User user = new User(null, objDto.getName(), objDto.getEmail(),
-                objDto.getPassword(), true);
+        User user = new User(
+                null,
+                objDto.getName(),
+                objDto.getEmail(),
+                objDto.getPassword(),
+                true);
         Role role = roleService.findById(Long.parseLong(objDto.getRoles()));
-
         user.setRoles(Collections.singletonList(role));
         return user;
     }
@@ -83,21 +90,11 @@ public class UserServiceImpl implements UserService {
         repo.save(user);
     }
 
-    private void userExists(String email){
+    private void userExists(String email) {
         User user = repo.findByEmail(email);
-
-        if(user != null) {
+        if (user != null) {
             throw new EmptyResultDataAccessException(1);
-//            throw new DataIntegrityException("Email ja utilizado por outro usuário!");
         }
-
-
-
-//        try{
-//            return user != null;
-//        }catch (DataIntegrityException e) {
-//            throw new DataIntegrityException("Email ja utilizado por outro usuário!");
-//        }
     }
 
     private void updateData(User newObj, User obj) {
@@ -105,26 +102,10 @@ public class UserServiceImpl implements UserService {
         newObj.setEmail(obj.getEmail());
         newObj.setPassword(obj.getPassword());
         newObj.setStatus(obj.getStatus());
-
         Role role = roleService.findById(obj.getRoles().get(0).getId());
-
         Integer qtde = obj.getRoles().size();
-
         List<Role> listRole = new ArrayList<>();
         listRole.add(role);
-
         newObj.setRoles(listRole);
-    }
-
-
-    private void updadeRoleUser (User obj) {
-
-//        for (User user : obj.getRoles()){
-//            Role role = roleService.findById(obj.getRoles().get(Math.toIntExact(x)-1));
-//            List<Role> list = new ArrayList<>();
-//            list.add(role);
-//            user.setRoles(list);
-//        }
-
     }
 }

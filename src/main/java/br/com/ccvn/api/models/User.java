@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +27,8 @@ public class User {
     @Column(length = 60)
     private String name;
 
-    @Email(message = "O endereço de email esta fora dos padrões")
-    @Column(unique = true, length = 60)
+    @NotBlank
+    @Email
     private String email;
 
     @Column(length = 60)
@@ -43,14 +44,15 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date updatedAt;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "vn_users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"),
             uniqueConstraints = {
                 @UniqueConstraint(columnNames = {
                         "user_id", "role_id"
-                })
+                }),
             })
     private List<Role> roles = new ArrayList<>();
 
